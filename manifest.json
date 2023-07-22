@@ -1,0 +1,16 @@
+{
+  "name": "swappenheimer",
+  "short_name": "swappenheim",
+  "description": "This Barbie has become Death, the destroyer of worlds.",
+  "version": "1.0.0",
+  "manifest_version": 3,
+  "author": "Alec Custer",
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"],
+      "js": ["replace.js"],
+      "run_at": "document_end",
+      "all_frames": true
+    }
+  ]
+}
