@@ -1,4 +1,5 @@
 const pairs = [
+  ['Barbies', 'nuclear physicists'],
   ['Barbie', 'Oppenheimer'],
   ['Greta Gerwig', 'Christopher Nolan'],
   ['Greta', 'Christopher'],
@@ -7,8 +8,6 @@ const pairs = [
   ['Robbie', 'Murphy'],
   ['physicist', 'doll'],
 ];
-
-const flatPairs = pairs.reduce((prev, curr) => prev.concat(curr), []);
 
 function replaceAll(sentence, wordsToReplace) {
   return Object.keys(wordsToReplace).reduce(
@@ -106,7 +105,7 @@ function swap() {
   for (let i = 0; i < textElements.length; i++) {
     const text = textElements[i].innerHTML;
 
-    if (flatPairs.some((p) => text.includes(p))) {
+    if (text.includes('Barbie') || text.includes('Oppenheimer')) {
       const firstPass = replaceAll(text, intermediaries);
       textElements[i].innerHTML = neutralize(replaceAll(firstPass, cipher));
     }
