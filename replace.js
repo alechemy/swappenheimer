@@ -1,3 +1,15 @@
+const pairs = [
+  ['Barbie', 'Oppenheimer'],
+  ['Greta Gerwig', 'Christopher Nolan'],
+  ['Greta', 'Christopher'],
+  ['Gerwig', 'Nolan'],
+  ['Margot Robbie', 'Cillian Murphy'],
+  ['Robbie', 'Murphy'],
+  ['physicist', 'doll'],
+];
+
+const flatPairs = pairs.reduce((prev, curr) => prev.concat(curr), []);
+
 const textElements = document.querySelectorAll(
   'h1, h2, h3, h4, h5, p, li, td, caption, span, a, em, div, b'
 );
@@ -17,16 +29,6 @@ function uuidv4() {
     ).toString(16)
   );
 }
-
-const pairs = [
-  ['Barbie', 'Oppenheimer'],
-  ['Greta Gerwig', 'Christopher Nolan'],
-  ['Greta', 'Christopher'],
-  ['Gerwig', 'Nolan'],
-  ['Margot Robbie', 'Cillian Murphy'],
-  ['Robbie', 'Murphy'],
-  ['physicist', 'doll'],
-];
 
 const intermediaries = {};
 const cipher = {};
@@ -48,15 +50,22 @@ pairs.forEach(([a, b]) => {
 for (let i = 0; i < textElements.length; i++) {
   const text = textElements[i].innerHTML;
 
-  textElements[i].innerHTML = replaceAll(text, {
-    'J. Robert Oppenheimer': 'Oppenheimer',
-    'Julius Robert Oppenheimer': 'Oppenheimer',
-  });
+  if (
+    text.includes('J. Robert Oppenheimer') ||
+    text.includes('Julius Robert Oppenheimer')
+  ) {
+    textElements[i].innerHTML = replaceAll(text, {
+      'J. Robert Oppenheimer': 'Oppenheimer',
+      'Julius Robert Oppenheimer': 'Oppenheimer',
+    });
+  }
 }
 
 for (let i = 0; i < textElements.length; i++) {
   const text = textElements[i].innerHTML;
 
-  const firstPass = replaceAll(text, intermediaries);
-  textElements[i].innerHTML = replaceAll(firstPass, cipher);
+  if (flatPairs.some((p) => text.includes(p))) {
+    const firstPass = replaceAll(text, intermediaries);
+    textElements[i].innerHTML = replaceAll(firstPass, cipher);
+  }
 }
